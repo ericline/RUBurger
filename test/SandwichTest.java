@@ -57,9 +57,9 @@ public class SandwichTest {
     @Test
     void testSalmonWithNoAddOns() {
         // Base price: $9.99
-        // Add-ons: Lettuce ($0.30) + Tomatoes ($0.30) + Cheese ($1.00) = $1.60
-        // Expected total: $9.99 + $1.60 = $11.59
-        assertEquals(11.59, salmonSandwich.price(), 0.001);
+        // Add-ons: $0.00
+        // Expected total: $9.99 + $0.00 = $9.99
+        assertEquals(9.99, salmonSandwich.price(), 0.001);
     }
 
     @Test
@@ -68,6 +68,6 @@ public class SandwichTest {
         // Base price: $10.99
         // Add-ons: Lettuce ($0.30) + Tomatoes ($0.30) + Cheese ($1.00) = $1.60
         // Expected total: ($10.99 + $1.60) * 3 = $37.77
-        assertEquals(25.18, roastBeefSandwich.price(), 0.001);
+        assertEquals(37.77, roastBeefSandwich.price(), 0.001);
     }
 }

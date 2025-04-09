@@ -44,4 +44,24 @@ public class Order {
     public void resetOrder() {
         instance = new Order();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Order #").append(number).append("\n");
+        sb.append("----------------------------\n");
+
+        if (items.isEmpty()) {
+            sb.append("No items in this order.\n");
+        } else {
+            for (MenuItem item : items) {
+                sb.append(item.toString()).append("\n");
+            }
+        }
+
+        sb.append("----------------------------\n");
+        sb.append(String.format("Total: $%.2f", calculateTotal()));
+
+        return sb.toString();
+    }
 }

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.animation.ScaleTransition;
 import javafx.util.Duration;
 import javafx.application.Platform;
+import model.Burger;
 
 import java.io.IOException;
 
@@ -106,20 +107,20 @@ public class MainController {
         Stage view1 = new Stage(); //if we want to use a new window
         BorderPane root;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/model/second-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/model/burger-view.fxml"));
             root = (BorderPane) loader.load();
             Scene scene = new Scene(root, 800, 800);
             //view1.setScene(scene); //if we want to use the new window to draw the scene graph
             //view1.setTitle("view1");
             //view1.show();
             primaryStage.setScene(scene);
-            SecondViewController secondViewController = loader.getController();
+            BurgerController burgerController = loader.getController();
             /*
               The statement below is to pass the references of the MainController objects
               to the SecondViewController object so the SecondViewController can call the
               public methods in the MainController or to navigate back to the main view.
              */
-            secondViewController.setMainController(this, view1, primaryStage, primaryScene);
+            burgerController.setMainController(this, view1, primaryStage, primaryScene);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
