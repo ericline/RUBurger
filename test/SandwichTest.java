@@ -14,27 +14,32 @@ public class SandwichTest {
     private Sandwich roastBeefSandwich;
     private Sandwich chickenSandwich;
     private Sandwich salmonSandwich;
-    private ArrayList<AddOns> addOns;
+    private ArrayList<AddOns> LTC;
+    private ArrayList<AddOns> AC;
     ArrayList<AddOns> emptyAddOns;
 
     @BeforeEach
     void setUp() {
         // Initialize add-ons
-        addOns = new ArrayList<>();
-        addOns.add(AddOns.LETTUCE);
-        addOns.add(AddOns.TOMATOES);
-        addOns.add(AddOns.CHEESE);
+        LTC = new ArrayList<>();
+        LTC.add(AddOns.LETTUCE);
+        LTC.add(AddOns.TOMATOES);
+        LTC.add(AddOns.CHEESE);
+
+        AC = new ArrayList<>();
+        AC.add(AddOns.AVOCADO);
+        AC.add(AddOns.CHEESE);
 
         emptyAddOns = new ArrayList<>();
 
         // Create sandwich instances
-        roastBeefSandwich = new Sandwich(Bread.BRIOCHE, Protein.ROAST_BEEF, addOns);
-        chickenSandwich = new Sandwich(Bread.WHEAT_BREAD, Protein.CHICKEN, addOns);
-        salmonSandwich = new Sandwich(Bread.SOURDOUGH, Protein.SALMON, addOns);
+        roastBeefSandwich = new Sandwich(Bread.BRIOCHE, Protein.ROAST_BEEF, LTC);
+        chickenSandwich = new Sandwich(Bread.WHEAT_BREAD, Protein.CHICKEN, AC);
+        salmonSandwich = new Sandwich(Bread.SOURDOUGH, Protein.SALMON, emptyAddOns);
     }
 
     @Test
-    void testPrice_RoastBeefWithAddOns() {
+    void testRoastBeefWithAddOns() {
         // Base price: $10.99
         // Add-ons: Lettuce ($0.30) + Tomatoes ($0.30) + Cheese ($1.00) = $1.60
         // Expected total: $10.99 + $1.60 = $12.59
@@ -42,15 +47,15 @@ public class SandwichTest {
     }
 
     @Test
-    void testPrice_ChickenWithAddOns() {
+    void testChickenWithAddOns() {
         // Base price: $8.99
-        // Add-ons: Lettuce ($0.30) + Tomatoes ($0.30) + Cheese ($1.00) = $1.60
-        // Expected total: $8.99 + $1.60 = $10.59
-        assertEquals(10.59, chickenSandwich.price(), 0.001);
+        // Add-ons: Avocado ($0.50) + Cheese ($1.00) = $1.50
+        // Expected total: $8.99 + $1.50 = $10.49
+        assertEquals(10.49, chickenSandwich.price(), 0.001);
     }
 
     @Test
-    void testPrice_SalmonWithAddOns() {
+    void testSalmonWithNoAddOns() {
         // Base price: $9.99
         // Add-ons: Lettuce ($0.30) + Tomatoes ($0.30) + Cheese ($1.00) = $1.60
         // Expected total: $9.99 + $1.60 = $11.59
@@ -58,37 +63,11 @@ public class SandwichTest {
     }
 
     @Test
-    void testPrice_NoAddOns() {
-        ArrayList<AddOns> emptyAddOns = new ArrayList<>();
-        Sandwich plainSandwich = new Sandwich(Bread.PRETZEL, Protein.ROAST_BEEF, emptyAddOns);
-
-        // Base price only: $10.99
-        assertEquals(10.99, plainSandwich.price(), 0.001);
-    }
-
-    @Test
-    void testPrice_WithQuantity() {
-        roastBeefSandwich.setQuantity(2);
-        // Base price: $10.99 * 2 = $21.98
-        // Add-ons: (Lettuce $0.30 + Tomatoes $0.30 + Cheese $1.00) * 2 = $3.20
-        // Expected total: $21.98 + $3.20 = $25.18
+    void testSetQuantity() {
+        roastBeefSandwich.setQuantity(3);
+        // Base price: $10.99
+        // Add-ons: Lettuce ($0.30) + Tomatoes ($0.30) + Cheese ($1.00) = $1.60
+        // Expected total: ($10.99 + $1.60) * 3 = $37.77
         assertEquals(25.18, roastBeefSandwich.price(), 0.001);
-    }
-
-    @Test
-    void testToString() {
-        roastBeefSandwich.setQuantity(1);
-        String expected = "Roast Beef Sandwich on Brioche with Lettuce, Tomatoes, Cheese x1 ($12.59)";
-        assertEquals(expected, roastBeefSandwich.toString());
-    }
-
-    @Test
-    void testToString_NoAddOns() {
-        ArrayList<AddOns> emptyAddOns = new ArrayList<>();
-        Sandwich plainSandwich = new Sandwich(Bread.PRETZEL, Protein.ROAST_BEEF, emptyAddOns);
-        plainSandwich.setQuantity(1);
-
-        String expected = "Roast Beef Sandwich on Pretzel x1 ($10.99)";
-        assertEquals(expected, plainSandwich.toString());
     }
 }

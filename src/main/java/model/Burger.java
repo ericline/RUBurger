@@ -9,10 +9,10 @@ public class Burger extends Sandwich {
      * Constructs a Sandwich with specified bread, protein, and add-ons.
      *
      * @param bread   the bread type
-     * @param protein the protein type
+     * @param doublePatty if single or double patty
      * @param addOns  list of add-on toppings
      */
-    public Burger(Bread bread, Protein protein, ArrayList<AddOns> addOns, boolean doublePatty) {
+    public Burger(Bread bread, boolean doublePatty, ArrayList<AddOns> addOns) {
         super(bread, Protein.BEEF_PATTY, addOns);
         this.doublePatty = doublePatty;
     }
