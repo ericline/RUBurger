@@ -154,7 +154,6 @@ public class OrderController {
         }
 
         orderArchive.remove(currentOrder);
-        currentOrder.resetOrder();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Order Exported");
@@ -181,7 +180,6 @@ public class OrderController {
             return;
         }
         orderArchive.remove(currentOrder);
-        currentOrder.resetOrder();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Order Canceled");
         alert.setHeaderText("Success!");
