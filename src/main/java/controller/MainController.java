@@ -103,11 +103,11 @@ public class MainController {
      * To get the reference of the controller, use the getController() method.
      */
     @FXML
-    protected void displaySecondView() {
+    protected void displayBurgerView() {
         Stage view1 = new Stage(); //if we want to use a new window
         BorderPane root;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/model/burger-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/burger-view.fxml"));
             root = (BorderPane) loader.load();
             Scene scene = new Scene(root, 800, 800);
             //view1.setScene(scene); //if we want to use the new window to draw the scene graph
@@ -124,10 +124,50 @@ public class MainController {
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
-            alert.setHeaderText("Loading second-view.fxml.");
-            alert.setContentText("Couldn't load second-view.fxml.");
+            alert.setHeaderText("Loading burger-view.fxml.");
+            alert.setContentText("Couldn't load burger-view.fxml.");
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    protected void displaySandwichView() {
+        Stage view1 = new Stage();
+        BorderPane root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sandwich-view.fxml"));
+            root = (BorderPane) loader.load();
+            Scene scene = new Scene(root, 800, 800);
+            primaryStage.setScene(scene);
+            SandwichController sandwichController = loader.getController();
+            sandwichController.setMainController(this, view1, primaryStage, primaryScene);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading sandwich-view.fxml.");
+            alert.setContentText("Couldn't load sandwich-view.fxml.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    protected void displayBeverageView() {
+
+    }
+
+    @FXML
+    protected void displaySidesView() {
+
+    }
+
+    @FXML
+    protected void displayAllOrdersView() {
+
+    }
+
+    @FXML
+    protected void displayOrderVIew() {
+
     }
 
     /**

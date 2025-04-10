@@ -13,9 +13,9 @@ public enum Flavor {
     MILK_SHAKE("Milk Shake"),
     WATER("Water"),
     FRUIT_PUNCH("Fruit Punch"),
-    ORANGE_JUICE("Orange Juice"),
+    JUICE("Juice"),
     COFFEE("Coffee"),
-    RED_BULL("Red Bull");
+    TEA("Tea");
 
     private final String name;
 
@@ -25,6 +25,15 @@ public enum Flavor {
 
     public String getName() {
         return name;
+    }
+
+    public static Flavor fromString(String name) {
+        for (Flavor flavor : Flavor.values()) {
+            if (flavor.getName().equalsIgnoreCase(name)) {
+                return flavor;
+            }
+        }
+        return null;
     }
 
     @Override

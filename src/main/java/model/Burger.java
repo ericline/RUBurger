@@ -40,7 +40,7 @@ public class Burger extends Sandwich {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(doublePatty ? "Double" : "Single").append(" Burger on ").append(bread);
+        sb.append(doublePatty ? "Double" : "Single").append(" Patty Burger on ").append(bread);
         if (addOns != null && !addOns.isEmpty()) {
             sb.append(" with ");
             for (int i = 0; i < addOns.size(); i++) {

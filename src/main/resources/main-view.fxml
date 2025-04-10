@@ -18,7 +18,7 @@
          <children>
             <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@logo.png" />
+                  <Image url="@image/logo.png" />
                </image>
                <HBox.margin>
                   <Insets left="5.0" />
@@ -66,11 +66,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-             <Button fx:id="burgerButton" alignment="CENTER" contentDisplay="TOP" onAction="#displaySecondView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Burgers" textFill="WHITE" GridPane.halignment="CENTER">
+             <Button fx:id="burgerButton" alignment="CENTER" contentDisplay="TOP" onAction="#displayBurgerView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Burgers" textFill="WHITE" GridPane.halignment="CENTER">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@burgerIcon.png" />
+                        <Image url="@image/burgerIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -78,11 +78,11 @@
                   <Font name="Georgia Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="sandwichButton" alignment="CENTER" contentDisplay="TOP" layoutX="60.0" layoutY="19.0" onAction="#displaySecondView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Sandwiches" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Button fx:id="sandwichButton" alignment="CENTER" contentDisplay="TOP" layoutX="60.0" layoutY="19.0" onAction="#displaySandwichView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Sandwiches" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@sandwichIcon.png" />
+                        <Image url="@image/sandwichIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -90,11 +90,11 @@
                   <Font name="Georgia Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="beverageButton" alignment="CENTER" contentDisplay="TOP" layoutX="85.0" layoutY="56.0" onAction="#displaySecondView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Beverages" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button fx:id="beverageButton" alignment="CENTER" contentDisplay="TOP" layoutX="85.0" layoutY="56.0" onAction="#displayBeverageView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Beverages" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@beveragesIcon.png" />
+                        <Image url="@image/beveragesIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -102,11 +102,11 @@
                   <Font name="Georgia Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="sidesButton" alignment="CENTER" contentDisplay="TOP" layoutX="85.0" layoutY="248.0" onAction="#displaySecondView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Sides" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button fx:id="sidesButton" alignment="CENTER" contentDisplay="TOP" layoutX="85.0" layoutY="248.0" onAction="#displaySidesView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Sides" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="80.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@sidesIcon.png" />
+                        <Image url="@image/sidesIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -117,11 +117,11 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button fx:id="cartButton" alignment="CENTER" contentDisplay="TOP" layoutX="385.0" layoutY="248.0" onAction="#displaySecondView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Current Order" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="cartButton" alignment="CENTER" contentDisplay="TOP" layoutX="385.0" layoutY="248.0" onAction="#displayOrderVIew" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Current Order" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <graphic>
                   <ImageView fitHeight="90.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@cartIcon.png" />
+                        <Image url="@image/cartIcon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -129,11 +129,11 @@
                   <Font name="Georgia Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="ordersButton" alignment="CENTER" contentDisplay="TOP" layoutX="385.0" layoutY="248.0" onAction="#displaySecondView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="All Orders" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="ordersButton" alignment="CENTER" contentDisplay="TOP" layoutX="385.0" layoutY="248.0" onAction="#displayAllOrdersView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="All Orders" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <graphic>
                   <ImageView fitHeight="90.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@ordersIcon.png" />
+                        <Image url="@image/ordersIcon.png" />
                      </image>
                   </ImageView>
                </graphic>

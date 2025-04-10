@@ -18,6 +18,8 @@ public class Combo extends MenuItem{
         this.sandwich = sandwich;
         this.drink = drink;
         this.side = side;
+
+        setQuantity(sandwich.getQuantity());
     }
 
     /**
@@ -27,7 +29,19 @@ public class Combo extends MenuItem{
      */
     @Override
     public double price() {
-        return (sandwich.price() + 2.00) * quantity;
+        return (sandwich.price() + 2.00);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Combo Meal: ");
+        sb.append(sandwich.toString()).append("\n");
+        sb.append("  + Side: ").append(side).append("\n");
+        sb.append("  + Drink: ").append(drink).append("\n");
+        sb.append("Quantity: ").append(quantity).append("\n");
+        sb.append(String.format("Total: $%.2f", price()));
+        return sb.toString();
     }
 }
 

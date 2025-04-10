@@ -18,9 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BurgerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SandwichController">
    <top>
-      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="800.0" style="-fx-background-color: #E06C5A;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="800.0" style="-fx-background-color: #E06C5A;" BorderPane.alignment="CENTER">
          <children>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                <children>
@@ -31,7 +31,7 @@
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@xButton.png" />
+                              <Image url="@image/xButton.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -41,20 +41,20 @@
                   <Insets right="100.0" />
                </HBox.margin>
             </VBox>
-            <Label alignment="CENTER" text="Burgers" textFill="WHITE">
+            <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="68.0" prefWidth="385.0" text="Sandwiches" textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="60.0" />
                </font>
                <HBox.margin>
-                  <Insets right="140.0" />
+                  <Insets right="90.0" />
                </HBox.margin>
             </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@burgerIcon.png" />
+                  <Image url="@image/sandwichIcon.png" />
                </image>
                <HBox.margin>
-                  <Insets right="62.0" />
+                  <Insets right="10.0" />
                </HBox.margin>
             </ImageView>
          </children>
@@ -117,7 +117,7 @@
           <RowConstraints maxHeight="118.33380126953125" minHeight="3.497802734375" prefHeight="100.61151123046875" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Number of Patties" GridPane.halignment="RIGHT">
+            <Label text="Protein" GridPane.halignment="RIGHT">
                <font>
                   <Font name="Georgia Bold" size="20.0" />
                </font>
@@ -137,9 +137,9 @@
                   <Font name="Georgia Bold" size="20.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="75.0" GridPane.columnIndex="1">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="36.0" GridPane.columnIndex="1">
                <children>
-                  <RadioButton fx:id="burgerSingle" mnemonicParsing="false" selected="true" text="Single">
+                  <RadioButton fx:id="roastBeef" mnemonicParsing="false" selected="true" text="Roast Beef">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
@@ -147,7 +147,15 @@
                         <ToggleGroup fx:id="pattyGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="burgerDouble" layoutX="60.0" layoutY="52.0" mnemonicParsing="false" text="Double" toggleGroup="$pattyGroup">
+                  <RadioButton fx:id="salmon" layoutX="60.0" layoutY="52.0" mnemonicParsing="false" text="Salmon" toggleGroup="$pattyGroup">
+                     <font>
+                        <Font name="Georgia" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="27.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="chicken" layoutX="265.0" layoutY="46.0" mnemonicParsing="false" text="Chicken" toggleGroup="$pattyGroup">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
@@ -159,7 +167,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="253.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="63.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <RadioButton fx:id="burgerBrioche" mnemonicParsing="false" selected="true" text="Brioche">
+                  <RadioButton fx:id="sandwichBrioche" mnemonicParsing="false" selected="true" text="Brioche">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
@@ -167,12 +175,12 @@
                         <ToggleGroup fx:id="breadGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="burgerWheat" layoutX="60.0" layoutY="52.0" mnemonicParsing="false" text="Wheat" toggleGroup="$breadGroup">
+                  <RadioButton fx:id="sandwichWheat" layoutX="60.0" layoutY="52.0" mnemonicParsing="false" text="Wheat" toggleGroup="$breadGroup">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="burgerPretzel" layoutX="264.0" layoutY="52.0" mnemonicParsing="false" text="Pretzel" toggleGroup="$breadGroup">
+                  <RadioButton fx:id="sandwichPretzel" layoutX="264.0" layoutY="52.0" mnemonicParsing="false" text="Pretzel" toggleGroup="$breadGroup">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
@@ -187,27 +195,27 @@
             </HBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <CheckBox fx:id="burgerLettuce" mnemonicParsing="false" text="Lettuce">
+                  <CheckBox fx:id="sandwichLettuce" mnemonicParsing="false" text="Lettuce">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="burgerTomato" mnemonicParsing="false" text="Tomato">
+                  <CheckBox fx:id="sandwichTomato" mnemonicParsing="false" text="Tomato">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="burgerOnion" mnemonicParsing="false" text="Onion">
+                  <CheckBox fx:id="sandwichOnion" mnemonicParsing="false" text="Onion">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="burgerAvocado" mnemonicParsing="false" text="Avocado">
+                  <CheckBox fx:id="sandwichAvocado" mnemonicParsing="false" text="Avocado">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="burgerCheese" layoutX="60.0" layoutY="188.0" mnemonicParsing="false" text="Cheese">
+                  <CheckBox fx:id="sandwichCheese" layoutX="60.0" layoutY="188.0" mnemonicParsing="false" text="Cheese">
                      <font>
                         <Font name="Georgia" size="20.0" />
                      </font>
@@ -217,7 +225,7 @@
                   <Insets left="50.0" />
                </padding>
             </VBox>
-            <ComboBox fx:id="burgerQuantity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ComboBox fx:id="sandwichQuantity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="50.0" />
                </GridPane.margin>

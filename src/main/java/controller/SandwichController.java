@@ -20,56 +20,61 @@ import java.util.ArrayList;
 
 import javafx.util.Duration;
 import model.Order;
-import model.Burger;
+import model.Sandwich;
 import model.AddOns;
 import model.Bread;
+import model.Protein;
 
-public class BurgerController {
+public class SandwichController {
 
     @FXML
     private Button addOrder;
 
     @FXML
-    private CheckBox burgerAvocado;
+    private Button backButton;
+
 
     @FXML
-    private RadioButton burgerBrioche;
-
-    @FXML
-    private RadioButton burgerDouble;
-
-    @FXML
-    private CheckBox burgerLettuce;
-
-    @FXML
-    private CheckBox burgerOnion;
-
-    @FXML
-    private CheckBox burgerCheese;
-
-    @FXML
-    private RadioButton burgerPretzel;
-
-    @FXML
-    private ComboBox<Integer> burgerQuantity;
-
-    @FXML
-    private RadioButton burgerSingle;
-
-    @FXML
-    private CheckBox burgerTomato;
-
-    @FXML
-    private RadioButton burgerWheat;
+    private RadioButton chicken;
 
     @FXML
     private Button makeCombo;
 
     @FXML
-    private Button backButton;
+    private TextField priceField;
 
     @FXML
-    private TextField priceField;
+    private RadioButton roastBeef;
+
+    @FXML
+    private RadioButton salmon;
+
+    @FXML
+    private CheckBox sandwichAvocado;
+
+    @FXML
+    private RadioButton sandwichBrioche;
+
+    @FXML
+    private CheckBox sandwichCheese;
+
+    @FXML
+    private CheckBox sandwichLettuce;
+
+    @FXML
+    private CheckBox sandwichOnion;
+
+    @FXML
+    private RadioButton sandwichPretzel;
+
+    @FXML
+    private ComboBox<Integer> sandwichQuantity;
+
+    @FXML
+    private CheckBox sandwichTomato;
+
+    @FXML
+    private RadioButton sandwichWheat;
 
     private MainController mainController;
     private Stage stage;
@@ -77,7 +82,7 @@ public class BurgerController {
     private Stage primaryStage;
 
     private Order currentOrder;
-    private Burger burger;
+    private Sandwich sandwich;
 
     public void setMainController(MainController controller, Stage stage, Stage primaryStage, Scene primaryScene) {
         this.mainController = controller;
@@ -89,27 +94,28 @@ public class BurgerController {
 
     @FXML
     public void initialize() {
-        burgerQuantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        burgerQuantity.setValue(1);
+        sandwichQuantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        sandwichQuantity.setValue(1);
 
         applyHoverEffect(addOrder);
         applyHoverEffect(makeCombo);
         applyHoverEffect(backButton);
 
-        burgerSingle.setOnAction(e -> updateSubtotal());
-        burgerDouble.setOnAction(e -> updateSubtotal());
+        roastBeef.setOnAction(e -> updateSubtotal());
+        salmon.setOnAction(e -> updateSubtotal());
+        chicken.setOnAction(e -> updateSubtotal());
 
-        burgerBrioche.setOnAction(e -> updateSubtotal());
-        burgerWheat.setOnAction(e -> updateSubtotal());
-        burgerPretzel.setOnAction(e -> updateSubtotal());
+        sandwichBrioche.setOnAction(e -> updateSubtotal());
+        sandwichWheat.setOnAction(e -> updateSubtotal());
+        sandwichPretzel.setOnAction(e -> updateSubtotal());
 
-        burgerLettuce.setOnAction(e -> updateSubtotal());
-        burgerTomato.setOnAction(e -> updateSubtotal());
-        burgerOnion.setOnAction(e -> updateSubtotal());
-        burgerAvocado.setOnAction(e -> updateSubtotal());
-        burgerCheese.setOnAction(e -> updateSubtotal());
+        sandwichLettuce.setOnAction(e -> updateSubtotal());
+        sandwichTomato.setOnAction(e -> updateSubtotal());
+        sandwichOnion.setOnAction(e -> updateSubtotal());
+        sandwichAvocado.setOnAction(e -> updateSubtotal());
+        sandwichCheese.setOnAction(e -> updateSubtotal());
 
-        burgerQuantity.setOnAction(e -> updateSubtotal());
+        sandwichQuantity.setOnAction(e -> updateSubtotal());
 
         updateSubtotal();
     }
@@ -131,47 +137,55 @@ public class BurgerController {
     }
 
     private void updateSubtotal() {
-        boolean isDouble = burgerDouble.isSelected();
+        // Determine protein
+        Protein protein = null;
+        if (roastBeef.isSelected()) {
+            protein = Protein.ROAST_BEEF;
+        } else if (salmon.isSelected()) {
+            protein = Protein.SALMON;
+        } else if (chicken.isSelected()) {
+            protein = Protein.CHICKEN;
+        }
 
         // Determine bread
         Bread bread = null;
-        if (burgerBrioche.isSelected()) {
+        if (sandwichBrioche.isSelected()) {
             bread = Bread.BRIOCHE;
-        } else if (burgerWheat.isSelected()) {
+        } else if (sandwichWheat.isSelected()) {
             bread = Bread.WHEAT_BREAD;
-        } else if (burgerPretzel.isSelected()) {
+        } else if (sandwichPretzel.isSelected()) {
             bread = Bread.PRETZEL;
         }
 
         // Gather add-ons
         ArrayList<AddOns> selectedAddOns = new ArrayList<>();
-        if (burgerLettuce.isSelected()) selectedAddOns.add(AddOns.LETTUCE);
-        if (burgerTomato.isSelected()) selectedAddOns.add(AddOns.TOMATOES);
-        if (burgerOnion.isSelected()) selectedAddOns.add(AddOns.ONIONS);
-        if (burgerAvocado.isSelected()) selectedAddOns.add(AddOns.AVOCADO);
-        if (burgerCheese.isSelected()) selectedAddOns.add(AddOns.CHEESE);
+        if (sandwichLettuce.isSelected()) selectedAddOns.add(AddOns.LETTUCE);
+        if (sandwichTomato.isSelected()) selectedAddOns.add(AddOns.TOMATOES);
+        if (sandwichOnion.isSelected()) selectedAddOns.add(AddOns.ONIONS);
+        if (sandwichAvocado.isSelected()) selectedAddOns.add(AddOns.AVOCADO);
+        if (sandwichCheese.isSelected()) selectedAddOns.add(AddOns.CHEESE);
 
-        burger = new Burger(bread, isDouble, selectedAddOns);
+        sandwich = new Sandwich(bread, protein, selectedAddOns);
 
-        Integer qty = burgerQuantity.getValue();
+        Integer qty = sandwichQuantity.getValue();
         if (qty != null) {
-            burger.setQuantity(qty);
+            sandwich.setQuantity(qty);
         }
 
-        double price = burger.price();
+        double price = sandwich.price();
         priceField.setText(String.format("$%.2f", price));
     }
 
     @FXML
     void addToOrder(ActionEvent event) {
-        currentOrder.addItem(burger);
+        currentOrder.addItem(sandwich);
 
         System.out.println(currentOrder.toString());
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Order Confirmed");
         alert.setHeaderText("Success!");
-        alert.setContentText(burger.toString() + " has been added to the order.");
+        alert.setContentText(sandwich.toString() + " has been added to the order.");
         alert.showAndWait();
         backToMenu(event);
     }
@@ -186,7 +200,7 @@ public class BurgerController {
             Scene scene = new Scene(root, 800, 800);
             primaryStage.setScene(scene);
             ComboController comboController = loader.getController();
-            comboController.setMainController(mainController, view1, primaryStage, primaryScene, burger);
+            comboController.setMainController(mainController, view1, primaryStage, primaryScene, sandwich);
             comboController.loadUI();
         } catch (IOException e) {
             e.printStackTrace();

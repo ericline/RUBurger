@@ -34,7 +34,7 @@ public class Beverage extends MenuItem {
     }
     @Override
     public String toString() {
-        return size + " " + flavor + " x" + quantity + " ($" + String.format("%.2f", price()) + ")";
+        return size + " " + flavor;
     }
 }
 
