@@ -12,7 +12,10 @@ import javafx.stage.Stage;
 import javafx.animation.ScaleTransition;
 import javafx.util.Duration;
 import javafx.application.Platform;
+import java.util.ArrayList;
+import model.Beverage;
 import model.Burger;
+import model.Order;
 
 import java.io.IOException;
 
@@ -24,9 +27,9 @@ import java.io.IOException;
  */
 public class MainController {
 
-    private int value = 10; //this value will be retrieved in the SecondController
     private Stage primaryStage; //the reference of the main window.
     private Scene primaryScene; //the ref. of the scene set to the primaryStage
+    private ArrayList<Order> orderArchive = new ArrayList<>();
 
     @FXML
     private Button beverageButton;
@@ -61,16 +64,16 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        applyHoverEffect(burgerButton);
-        applyHoverEffect(sandwichButton);
-        applyHoverEffect(beverageButton);
-        applyHoverEffect(sidesButton);
-        applyHoverEffect(cartButton);
-        applyHoverEffect(ordersButton);
-        applyHoverEffect(exitButton);
+        applyColorHoverEffect(burgerButton);
+        applyColorHoverEffect(sandwichButton);
+        applyColorHoverEffect(beverageButton);
+        applyColorHoverEffect(sidesButton);
+        applyColorHoverEffect(cartButton);
+        applyColorHoverEffect(ordersButton);
+        applyColorHoverEffect(exitButton);
     }
 
-    private void applyHoverEffect(Node node) {
+    private void applyColorHoverEffect(Node node) {
         node.setOnMouseEntered(e -> {
             node.setStyle("-fx-background-color: #d44833"); // Or use a different style per node
             ScaleTransition st = new ScaleTransition(Duration.millis(150), node);
@@ -81,6 +84,22 @@ public class MainController {
 
         node.setOnMouseExited(e -> {
             node.setStyle("-fx-background-color: #E06C5A");
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), node);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
+    }
+
+    public void applyHoverEffect(Node node) {
+        node.setOnMouseEntered(e -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), node);
+            st.setToX(1.1);
+            st.setToY(1.1);
+            st.play();
+        });
+
+        node.setOnMouseExited(e -> {
             ScaleTransition st = new ScaleTransition(Duration.millis(150), node);
             st.setToX(1.0);
             st.setToY(1.0);
@@ -121,6 +140,7 @@ public class MainController {
               public methods in the MainController or to navigate back to the main view.
              */
             burgerController.setMainController(this, view1, primaryStage, primaryScene);
+            burgerController.applyHoverEffects();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -141,6 +161,7 @@ public class MainController {
             primaryStage.setScene(scene);
             SandwichController sandwichController = loader.getController();
             sandwichController.setMainController(this, view1, primaryStage, primaryScene);
+            sandwichController.applyHoverEffects();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -150,32 +171,74 @@ public class MainController {
         }
     }
 
+
     @FXML
     protected void displayBeverageView() {
-
+        Stage view1 = new Stage();
+        BorderPane root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/beverage-view.fxml"));
+            root = (BorderPane) loader.load();
+            Scene scene = new Scene(root, 800, 800);
+            primaryStage.setScene(scene);
+            BeverageController beverageController = loader.getController();
+            beverageController.setMainController(this, view1, primaryStage, primaryScene);
+            beverageController.applyHoverEffects();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading beverage-view.fxml.");
+            alert.setContentText("Couldn't load beverage-view.fxml.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     protected void displaySidesView() {
+        Stage view1 = new Stage();
+        BorderPane root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sides-view.fxml"));
+            root = (BorderPane) loader.load();
+            Scene scene = new Scene(root, 800, 800);
+            primaryStage.setScene(scene);
+            SidesController sidesController = loader.getController();
+            sidesController.setMainController(this, view1, primaryStage, primaryScene);
+            sidesController.applyHoverEffects();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading beverage-view.fxml.");
+            alert.setContentText("Couldn't load beverage-view.fxml.");
+            alert.showAndWait();
+        }
+    }
 
+    @FXML
+    protected void displayCurrentOrderView() {
+        Stage view1 = new Stage();
+        BorderPane root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/current-view.fxml"));
+            root = (BorderPane) loader.load();
+            Scene scene = new Scene(root, 800, 800);
+            primaryStage.setScene(scene);
+            CurrentOrderController currentOrderController = loader.getController();
+            currentOrderController.setMainController(this, view1, primaryStage, primaryScene, orderArchive);
+            currentOrderController.loadUI();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading beverage-view.fxml.");
+            alert.setContentText("Couldn't load beverage-view.fxml.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     protected void displayAllOrdersView() {
-
-    }
-
-    @FXML
-    protected void displayOrderVIew() {
-
-    }
-
-    /**
-     * The SecondViewController can use this getter method to read the private data encapsulated
-     * in this class.
-     * @return the integer value in this class.
-     */
-    public int getValue() {
-        return value;
+        for (Order order : orderArchive) {
+            System.out.println(order);
+        }
     }
 }

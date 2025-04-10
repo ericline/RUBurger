@@ -92,10 +92,6 @@ public class BurgerController {
         burgerQuantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         burgerQuantity.setValue(1);
 
-        applyHoverEffect(addOrder);
-        applyHoverEffect(makeCombo);
-        applyHoverEffect(backButton);
-
         burgerSingle.setOnAction(e -> updateSubtotal());
         burgerDouble.setOnAction(e -> updateSubtotal());
 
@@ -114,20 +110,10 @@ public class BurgerController {
         updateSubtotal();
     }
 
-    private void applyHoverEffect(Node node) {
-        node.setOnMouseEntered(e -> {
-            ScaleTransition st = new ScaleTransition(Duration.millis(150), node);
-            st.setToX(1.1);
-            st.setToY(1.1);
-            st.play();
-        });
-
-        node.setOnMouseExited(e -> {
-            ScaleTransition st = new ScaleTransition(Duration.millis(150), node);
-            st.setToX(1.0);
-            st.setToY(1.0);
-            st.play();
-        });
+    public void applyHoverEffects() {
+        mainController.applyHoverEffect(addOrder);
+        mainController.applyHoverEffect(makeCombo);
+        mainController.applyHoverEffect(backButton);
     }
 
     private void updateSubtotal() {
@@ -166,8 +152,6 @@ public class BurgerController {
     void addToOrder(ActionEvent event) {
         currentOrder.addItem(burger);
 
-        System.out.println(currentOrder.toString());
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Order Confirmed");
         alert.setHeaderText("Success!");
@@ -189,7 +173,6 @@ public class BurgerController {
             comboController.setMainController(mainController, view1, primaryStage, primaryScene, burger);
             comboController.loadUI();
         } catch (IOException e) {
-            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Loading combo-view.fxml.");
@@ -201,7 +184,7 @@ public class BurgerController {
 
     @FXML
     public void backToMenu(ActionEvent event) {
-        //stage.close(); //close the window.
+        stage.close(); //close the window.
         primaryStage.setScene(primaryScene);
         primaryStage.show();
     }

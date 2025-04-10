@@ -15,11 +15,20 @@ public class Order {
         this.items = new ArrayList<>();
     }
 
+    private Order(int number, ArrayList<MenuItem> items) {
+        this.number = number;
+        this.items = new ArrayList<>(items);
+    }
+
     public static Order getInstance() {
         if (instance == null) {
             instance = new Order();
         }
         return instance;
+    }
+
+    public Order cloneOrder() {
+        return new Order(this.number, this.items);
     }
 
     public void addItem(MenuItem item) {
@@ -39,6 +48,10 @@ public class Order {
     }
     public int getNumber() {
         return number;
+    }
+
+    public ArrayList<MenuItem> getItems() {
+        return items;
     }
 
     public void resetOrder() {

@@ -117,7 +117,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button fx:id="cartButton" alignment="CENTER" contentDisplay="TOP" layoutX="385.0" layoutY="248.0" onAction="#displayOrderVIew" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Current Order" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="cartButton" alignment="CENTER" contentDisplay="TOP" layoutX="385.0" layoutY="248.0" onAction="#displayCurrentOrderView" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #E06C5A;" text="Current Order" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <graphic>
                   <ImageView fitHeight="90.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>

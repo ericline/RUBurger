@@ -1,4 +1,6 @@
-import model.*;
+import model.AddOns;
+import model.Bread;
+import model.Burger;
 
 import java.util.ArrayList;
 

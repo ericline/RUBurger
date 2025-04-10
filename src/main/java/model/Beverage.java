@@ -28,13 +28,12 @@ public class Beverage extends MenuItem {
             return 2.99 * quantity;
         }
         else {
-            System.out.println("Invalid size");
             return 0;
         }
     }
     @Override
     public String toString() {
-        return size + " " + flavor;
+        return size + " " + flavor + " x" + quantity;
     }
 }
 

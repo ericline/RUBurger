@@ -93,13 +93,9 @@ public class SandwichController {
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         sandwichQuantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         sandwichQuantity.setValue(1);
-
-        applyHoverEffect(addOrder);
-        applyHoverEffect(makeCombo);
-        applyHoverEffect(backButton);
 
         roastBeef.setOnAction(e -> updateSubtotal());
         salmon.setOnAction(e -> updateSubtotal());
@@ -120,21 +116,12 @@ public class SandwichController {
         updateSubtotal();
     }
 
-    private void applyHoverEffect(Node node) {
-        node.setOnMouseEntered(e -> {
-            ScaleTransition st = new ScaleTransition(Duration.millis(150), node);
-            st.setToX(1.1);
-            st.setToY(1.1);
-            st.play();
-        });
-
-        node.setOnMouseExited(e -> {
-            ScaleTransition st = new ScaleTransition(Duration.millis(150), node);
-            st.setToX(1.0);
-            st.setToY(1.0);
-            st.play();
-        });
+    public void applyHoverEffects() {
+        mainController.applyHoverEffect(addOrder);
+        mainController.applyHoverEffect(makeCombo);
+        mainController.applyHoverEffect(backButton);
     }
+
 
     private void updateSubtotal() {
         // Determine protein
@@ -170,10 +157,10 @@ public class SandwichController {
         Integer qty = sandwichQuantity.getValue();
         if (qty != null) {
             sandwich.setQuantity(qty);
-        }
+    }
 
-        double price = sandwich.price();
-        priceField.setText(String.format("$%.2f", price));
+    double price = sandwich.price();
+    priceField.setText(String.format("$%.2f", price));
     }
 
     @FXML
@@ -203,7 +190,6 @@ public class SandwichController {
             comboController.setMainController(mainController, view1, primaryStage, primaryScene, sandwich);
             comboController.loadUI();
         } catch (IOException e) {
-            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("Loading combo-view.fxml.");
@@ -215,7 +201,7 @@ public class SandwichController {
 
     @FXML
     public void backToMenu(ActionEvent event) {
-        //stage.close(); //close the window.
+        stage.close();
         primaryStage.setScene(primaryScene);
         primaryStage.show();
     }

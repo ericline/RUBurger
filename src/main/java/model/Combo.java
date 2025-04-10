@@ -39,7 +39,6 @@ public class Combo extends MenuItem{
         sb.append(sandwich.toString()).append("\n");
         sb.append("  + Side: ").append(side).append("\n");
         sb.append("  + Drink: ").append(drink).append("\n");
-        sb.append("Quantity: ").append(quantity).append("\n");
         sb.append(String.format("Total: $%.2f", price()));
         return sb.toString();
     }
