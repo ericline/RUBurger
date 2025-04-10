@@ -72,8 +72,13 @@ public class Order {
             }
         }
 
+        double tax = 0.06625;
+        double subtotal = calculateTotal();
+
         sb.append("----------------------------\n");
-        sb.append(String.format("Total: $%.2f", calculateTotal()));
+        sb.append(String.format("Subtotal: $%.2f\n", subtotal));
+        sb.append(String.format("Tax (6.625%%): $%.2f\n", subtotal * tax));
+        sb.append(String.format("Total: $%.2f\n", subtotal * (1 + tax)));
 
         return sb.toString();
     }

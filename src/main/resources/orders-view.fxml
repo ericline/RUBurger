@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CurrentOrderController">
+<BorderPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderController">
    <top>
       <HBox fx:id="topBar" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="500.0" style="-fx-background-color: #E06C5A;" BorderPane.alignment="CENTER">
          <children>
@@ -27,7 +28,7 @@
                   <Insets left="5.0" />
                </HBox.margin>
             </ImageView>
-            <Label alignment="CENTER" text="Current Order">
+            <Label alignment="CENTER" text="Active Orders">
                <font>
                   <Font name="Georgia Bold" size="40.0" />
                </font>
@@ -65,11 +66,11 @@
                   <Insets left="15.0" top="15.0" />
                </VBox.margin>
                <children>
-                  <TextField fx:id="orderNumber" editable="false">
+                  <ComboBox fx:id="orderNumber" prefWidth="150.0">
                      <HBox.margin>
                         <Insets top="70.0" />
                      </HBox.margin>
-                  </TextField>
+                  </ComboBox>
                   <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="265.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="298.0709228515625" minWidth="10.0" prefWidth="113.07803344726562" />
@@ -96,9 +97,9 @@
                               <Font name="Georgia" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="orderSubtotal" editable="false" GridPane.columnIndex="1" />
-                        <TextField fx:id="orderTax" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="orderTotal" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="orderSubtotal" GridPane.columnIndex="1" />
+                        <TextField fx:id="orderTax" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="orderTotal" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -112,12 +113,7 @@
             <ListView fx:id="orderList" prefHeight="357.0" prefWidth="800.0" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="75.0">
                <children>
-                  <Button fx:id="sendOrderButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#sendOrder" prefHeight="45.0" prefWidth="175.0" style="-fx-background-color: #5E8A40;" text="Send Order" textFill="WHITE">
-                     <font>
-                        <Font name="Georgia" size="24.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="removeItemButton" layoutX="185.0" layoutY="38.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#cancelItem" prefHeight="45.0" prefWidth="175.0" style="-fx-background-color: #E6CF4D;" text="Remove Item" textFill="WHITE">
+                  <Button fx:id="exportOrderButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#exportOrder" prefHeight="45.0" prefWidth="175.0" style="-fx-background-color: #5E8A40;" text="Export Order" textFill="WHITE">
                      <font>
                         <Font name="Georgia" size="24.0" />
                      </font>

@@ -23,6 +23,6 @@ public class SideItem extends MenuItem {
 
     @Override
     public String toString() {
-        return side.getName() + " x" + quantity;
+        return size + " " + side.getName() + " x" + quantity + " ($" + String.format("%.2f", price()) + ")";
     }
 }

@@ -1,18 +1,11 @@
 package controller;
 
-import javafx.animation.ScaleTransition;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
@@ -22,6 +15,12 @@ import model.Side;
 import model.Size;
 import model.SideItem;
 
+/**
+ * Controller class for the Sides view.
+ * Manages user interaction for selecting a side, size, and quantity,
+ * updating the subtotal, and adding the side item to the current order.
+ * @author Eric Lin, Anish Mande
+ */
 public class SidesController {
 
     @FXML
@@ -51,6 +50,14 @@ public class SidesController {
     private Side side;
     private SideItem sideItem;
 
+    /**
+     * Sets references to the main controller, stages, and scene for returning to the menu.
+     *
+     * @param controller     the main controller reference
+     * @param stage          the current popup stage
+     * @param primaryStage   the main application stage
+     * @param primaryScene   the main menu scene to return to
+     */
     public void setMainController(MainController controller, Stage stage, Stage primaryStage, Scene primaryScene) {
         this.mainController = controller;
         this.stage = stage;
@@ -59,6 +66,11 @@ public class SidesController {
         this.currentOrder = Order.getInstance();
     }
 
+    /**
+     * Initializes the sides view UI.
+     * Populates the side, size, and quantity controls and sets listeners
+     * to update the subtotal when selections change.
+     */
     @FXML
     private void initialize() {
         // Populate Sides list
@@ -85,11 +97,18 @@ public class SidesController {
         updateSubtotal();
     }
 
+    /**
+     * Applies hover scaling effect to interactive buttons.
+     */
     public void applyHoverEffects() {
         mainController.applyHoverEffect(addOrder);
         mainController.applyHoverEffect(backButton);
     }
 
+    /**
+     * Updates the subtotal price displayed based on the selected side,
+     * size, and quantity.
+     */
     private void updateSubtotal() {
         Side selectedSide = sidesList.getSelectionModel().getSelectedItem();
         Size selectedSize = sizeOption.getValue();
@@ -105,6 +124,10 @@ public class SidesController {
         priceField.setText(String.format("$%.2f", price));
     }
 
+    /**
+     * Adds the selected side item to the current order and displays a confirmation.
+     * @param event the action event triggered by clicking the add button
+     */
     @FXML
     void addToOrder(ActionEvent event) {
 
@@ -118,6 +141,10 @@ public class SidesController {
         backToMenu(event);
     }
 
+    /**
+     * Closes the sides view and returns to the main menu scene.
+     * @param event the action event triggered by clicking the back button
+     */
     @FXML
     void backToMenu(ActionEvent event) {
         stage.close();

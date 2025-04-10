@@ -1,8 +1,6 @@
 package controller;
 
-import javafx.animation.ScaleTransition;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -18,13 +16,18 @@ import javafx.scene.control.Alert;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javafx.util.Duration;
 import model.Order;
 import model.Sandwich;
 import model.AddOns;
 import model.Bread;
 import model.Protein;
 
+/**
+ * Controller class for the Sandwich view.
+ * Handles sandwich customization, subtotal calculation, combo creation,
+ * order placement, and view transitions.
+ * @author Eric Lin, Anish Mande
+ */
 public class SandwichController {
 
     @FXML
@@ -84,6 +87,14 @@ public class SandwichController {
     private Order currentOrder;
     private Sandwich sandwich;
 
+    /**
+     * Sets up necessary references to parent controller, stages, and order.
+     *
+     * @param controller     the main controller
+     * @param stage          the current window stage
+     * @param primaryStage   the main application stage
+     * @param primaryScene   the main scene to return to
+     */
     public void setMainController(MainController controller, Stage stage, Stage primaryStage, Scene primaryScene) {
         this.mainController = controller;
         this.stage = stage;
@@ -92,6 +103,11 @@ public class SandwichController {
         this.currentOrder = Order.getInstance();
     }
 
+    /**
+     * Initializes the view components.
+     * Sets default values, populates the quantity dropdown, and
+     * adds listeners to update subtotal on user interaction.
+     */
     @FXML
     private void initialize() {
         sandwichQuantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -116,13 +132,19 @@ public class SandwichController {
         updateSubtotal();
     }
 
+    /**
+     * Applies hover scaling effects to the buttons in the view.
+     */
     public void applyHoverEffects() {
         mainController.applyHoverEffect(addOrder);
         mainController.applyHoverEffect(makeCombo);
         mainController.applyHoverEffect(backButton);
     }
 
-
+    /**
+     * Updates the subtotal price shown in the UI based on
+     * selected protein, bread, add-ons, and quantity.
+     */
     private void updateSubtotal() {
         // Determine protein
         Protein protein = null;
@@ -157,17 +179,19 @@ public class SandwichController {
         Integer qty = sandwichQuantity.getValue();
         if (qty != null) {
             sandwich.setQuantity(qty);
+        }
+
+        double price = sandwich.price();
+        priceField.setText(String.format("$%.2f", price));
     }
 
-    double price = sandwich.price();
-    priceField.setText(String.format("$%.2f", price));
-    }
-
+    /**
+     * Adds the configured sandwich to the current order and returns to the menu.
+     * @param event the action event triggered by clicking the add button
+     */
     @FXML
     void addToOrder(ActionEvent event) {
         currentOrder.addItem(sandwich);
-
-        System.out.println(currentOrder.toString());
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Order Confirmed");
@@ -177,6 +201,10 @@ public class SandwichController {
         backToMenu(event);
     }
 
+    /**
+     * Transitions to the combo creation view, passing the current sandwich to it.
+     * @param event the action event triggered by clicking the combo button
+     */
     @FXML
     void makeCombo(ActionEvent event) {
         Stage view1 = new Stage();
@@ -199,6 +227,10 @@ public class SandwichController {
         }
     }
 
+    /**
+     * Closes the current view and returns to the main scene.
+     * @param event the action event triggered by clicking the back button
+     */
     @FXML
     public void backToMenu(ActionEvent event) {
         stage.close();

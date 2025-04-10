@@ -24,6 +24,12 @@ import model.Burger;
 import model.AddOns;
 import model.Bread;
 
+/**
+ * Controller for the Burger view.
+ * Manages burger customization, subtotal updates, and interactions for adding the item to the order
+ * or making it a combo.
+ * @author Eric Lin, Anish Mande
+ */
 public class BurgerController {
 
     @FXML
@@ -71,14 +77,24 @@ public class BurgerController {
     @FXML
     private TextField priceField;
 
+    // Controller references
     private MainController mainController;
     private Stage stage;
     private Scene primaryScene;
     private Stage primaryStage;
 
+    // Current order and selected burger
     private Order currentOrder;
     private Burger burger;
 
+    /**
+     * Initializes references and sets up shared controller navigation.
+     *
+     * @param controller      Reference to the main controller
+     * @param stage           The secondary stage
+     * @param primaryStage    The main application stage
+     * @param primaryScene    The main scene to return to
+     */
     public void setMainController(MainController controller, Stage stage, Stage primaryStage, Scene primaryScene) {
         this.mainController = controller;
         this.stage = stage;
@@ -87,6 +103,10 @@ public class BurgerController {
         this.currentOrder = Order.getInstance();
     }
 
+    /**
+     * Initializes the burger view, populates combo boxes, and sets up action listeners
+     * for UI elements to trigger subtotal recalculations.
+     */
     @FXML
     public void initialize() {
         burgerQuantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -110,12 +130,19 @@ public class BurgerController {
         updateSubtotal();
     }
 
+    /**
+     * Applies hover effects to UI buttons using the shared method from MainController.
+     */
     public void applyHoverEffects() {
         mainController.applyHoverEffect(addOrder);
         mainController.applyHoverEffect(makeCombo);
         mainController.applyHoverEffect(backButton);
     }
 
+    /**
+     * Calculates and updates the subtotal for the current burger selection
+     * based on bread, size (single/double), and selected add-ons.
+     */
     private void updateSubtotal() {
         boolean isDouble = burgerDouble.isSelected();
 
@@ -148,6 +175,10 @@ public class BurgerController {
         priceField.setText(String.format("$%.2f", price));
     }
 
+    /**
+     * Adds the current burger configuration to the active order.
+     * Displays confirmation and navigates back to the main menu.
+     */
     @FXML
     void addToOrder(ActionEvent event) {
         currentOrder.addItem(burger);
@@ -160,6 +191,10 @@ public class BurgerController {
         backToMenu(event);
     }
 
+    /**
+     * Loads the Combo view, passing the current burger to the next controller.
+     * Handles scene transition and error reporting.
+     */
     @FXML
     void makeCombo(ActionEvent event) {
         Stage view1 = new Stage();
@@ -182,6 +217,9 @@ public class BurgerController {
         }
     }
 
+    /**
+     * Returns to the main menu by restoring the primary scene and closing the secondary stage.
+     */
     @FXML
     public void backToMenu(ActionEvent event) {
         stage.close(); //close the window.

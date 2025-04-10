@@ -9,10 +9,18 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 import model.Order;
 import model.MenuItem;
 
 import java.util.ArrayList;
+
+/**
+ * Controller for the Current Order view.
+ * Displays the current order's contents, allows users to remove items, send the order,
+ * or cancel it entirely. Also archives the order history.
+ * @author Eric Lin, Anish Mande
+ */
 
 public class CurrentOrderController {
 
@@ -57,6 +65,16 @@ public class CurrentOrderController {
     private Order currentOrder;
     private ArrayList<Order> orderArchive;
 
+    /**
+     * Initializes controller with scene and application references,
+     * and sets the shared order archive and current order.
+     *
+     * @param controller     Main controller reference
+     * @param stage          Current view stage
+     * @param primaryStage   Main application window
+     * @param primaryScene   Scene to return to
+     * @param orderArchive   Shared list of submitted orders
+     */
     public void setMainController(MainController controller, Stage stage, Stage primaryStage, Scene primaryScene, ArrayList<Order> orderArchive) {
         this.mainController = controller;
         this.stage = stage;
@@ -66,6 +84,10 @@ public class CurrentOrderController {
         this.currentOrder = Order.getInstance();
     }
 
+    /**
+     * Loads the UI with current order details and applies hover effects to buttons.
+     * Also displays the order number.
+     */
     public void loadUI() {
         mainController.applyHoverEffect(sendOrderButton);
         mainController.applyHoverEffect(cancelOrderButton);
@@ -76,6 +98,10 @@ public class CurrentOrderController {
         orderNumber.setText("Order #" + String.valueOf(currentOrder.getNumber()));
     }
 
+    /**
+     * Updates the subtotal, tax, and total fields based on the current order contents.
+     * Also populates the ListView with the order's items.
+     */
     private void updatePrices() {
         orderList.getItems().setAll(currentOrder.getItems());
         double subtotal = currentOrder.calculateTotal();
@@ -87,8 +113,20 @@ public class CurrentOrderController {
         orderTotal.setText(String.format("$%.2f", total));
     }
 
+    /**
+     * Sends the current order by archiving it and resetting the active order.
+     * Shows a confirmation alert. Does not allow sending if the order is empty.
+     */
     @FXML
     void sendOrder(ActionEvent event) {
+        if (currentOrder.getItems().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Empty Order");
+            alert.setContentText("Cannot send empty order.");
+            alert.showAndWait();
+            return;
+        }
+
         orderArchive.add(currentOrder.cloneOrder());
 
         currentOrder.resetOrder();
@@ -102,6 +140,10 @@ public class CurrentOrderController {
         handleExit(event);
     }
 
+    /**
+     * Removes the selected item from the current order.
+     * Shows an alert if no item is selected.
+     */
     @FXML
     void cancelItem(ActionEvent event) {
         MenuItem selectedItem = orderList.getSelectionModel().getSelectedItem();
@@ -118,8 +160,19 @@ public class CurrentOrderController {
         updatePrices();
     }
 
+    /**
+     * Cancels the entire current order and resets it.
+     * Shows an alert confirming cancellation. Blocks action if order is empty.
+     */
     @FXML
     void cancelOrder(ActionEvent event) {
+        if (currentOrder.getItems().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Empty Order");
+            alert.setContentText("There are no items in the order.");
+            alert.showAndWait();
+            return;
+        }
         currentOrder.resetOrder();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Order Canceled");
@@ -129,6 +182,9 @@ public class CurrentOrderController {
         handleExit(event);
     }
 
+    /**
+     * Navigates back to the primary scene (main menu).
+     */
     @FXML
     void handleExit(ActionEvent event) {
         stage.close();

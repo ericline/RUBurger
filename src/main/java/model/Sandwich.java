@@ -52,6 +52,20 @@ public class Sandwich extends MenuItem {
         return (basePrice + addOnTotal) * quantity;
     }
 
+    public String withoutPrice() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(protein).append(" Sandwich on ").append(bread);
+        if (addOns != null && !addOns.isEmpty()) {
+            sb.append(" with ");
+            for (int i = 0; i < addOns.size(); i++) {
+                sb.append(addOns.get(i));
+                if (i < addOns.size() - 1) sb.append(", ");
+            }
+        }
+        sb.append(" x").append(quantity);
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

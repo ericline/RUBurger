@@ -21,6 +21,12 @@ import model.Combo;
 import model.Size;
 import model.Flavor;
 
+/**
+ * Controller for the Combo view.
+ * Allows users to convert a burger or sandwich into a combo by selecting a drink and side.
+ * Handles UI logic, image updates, and pricing.
+ * @author Eric Lin, Anish Mande
+ */
 public class ComboController {
 
     @FXML
@@ -61,6 +67,16 @@ public class ComboController {
     private Combo combo;
     private double price = 0;
 
+    /**
+     * Initializes and stores references for navigation and data sharing.
+     * Called when this controller is loaded from the main menu with a sandwich.
+     *
+     * @param controller     Reference to MainController
+     * @param stage          Secondary stage (if used)
+     * @param primaryStage   Main application window
+     * @param primaryScene   Main scene to return to
+     * @param sandwich       The selected sandwich or burger to combo
+     */
     public void setMainController(MainController controller,
                                   Stage stage,
                                   Stage primaryStage,
@@ -74,6 +90,10 @@ public class ComboController {
         this.sandwich = sandwich;
     }
 
+    /**
+     * Initializes the combo options and UI listeners.
+     * Called automatically after FXML is loaded.
+     */
     @FXML
     private void initialize() {
         sideOptions.getItems().addAll(Side.CHIPS, Side.APPLE_SLICES);
@@ -90,6 +110,9 @@ public class ComboController {
         quantityOption.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     }
 
+    /**
+     * Updates the side image based on the selected side.
+     */
     private void updateSideImage() {
         Side selected = sideOptions.getValue();
 
@@ -106,6 +129,10 @@ public class ComboController {
 
         sidesImage.setImage(new Image(getClass().getResourceAsStream("/image/" + name)));
     }
+
+    /**
+     * Updates the drink image based on the selected drink option.
+     */
     private void updateDrinkImage() {
         String selected = drinkOptions.getValue();
         String name = "";
@@ -124,6 +151,9 @@ public class ComboController {
         drinksImage.setImage(new Image(getClass().getResourceAsStream("/image/" + name)));
     }
 
+    /**
+     * Loads the UI state with the quantity and subtotal from the original sandwich or burger.
+     */
     public void loadUI() {
         if (sandwich instanceof Burger) {
             burger = (Burger) sandwich;
@@ -136,18 +166,22 @@ public class ComboController {
         updateSubtotal();
     }
 
+    /**
+     * Recalculates and displays the subtotal based on the selected sandwich and quantity.
+     * Adds $2.00 per item to represent the combo upcharge.
+     */
     private void updateSubtotal() {
         Integer qty = quantityOption.getValue();
         if (sandwich instanceof Burger) {
             if (qty != null) {
                 burger.setQuantity(qty);
-                priceField.setText(String.format("$%.2f", burger.price() + 2.00));
+                priceField.setText(String.format("$%.2f", burger.price() + 2.00 * qty));
             }
         }
         else if (sandwich instanceof Sandwich) {
             if (qty != null) {
                 sandwich.setQuantity(qty);
-                priceField.setText(String.format("$%.2f", sandwich.price() + 2.00));
+                priceField.setText(String.format("$%.2f", sandwich.price() + 2.00 * qty));
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -160,6 +194,10 @@ public class ComboController {
         sandwichText.setText(sandwich.toString());
     }
 
+    /**
+     * Creates a Combo object and adds it to the current order.
+     * Shows confirmation and returns to the main menu.
+     */
     @FXML
     void addToOrder(ActionEvent event) {
         Beverage drink = new Beverage(Size.MEDIUM, Flavor.fromString(drinkOptions.getValue()));
@@ -180,6 +218,9 @@ public class ComboController {
         backToMenu();
     }
 
+    /**
+     * Navigates back to the primary scene (main menu).
+     */
     @FXML
     public void backToMenu() {
         //stage.close(); //close the window.

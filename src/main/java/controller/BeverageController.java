@@ -16,8 +16,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 
-import model.*;
+import model.Beverage;
+import model.Order;
+import model.Flavor;
+import model.Size;
 
+/**
+ * Controller for the Beverage view.
+ * Manages beverage selection, quantity, size, price calculation, and adding the beverage to the order.
+ * @author Eric Lin, Anish Mande
+ */
 public class BeverageController {
 
     @FXML
@@ -38,14 +46,24 @@ public class BeverageController {
     @FXML
     private ComboBox<Size> sizeOption;
 
+    // Controller references
     private MainController mainController;
     private Stage stage;
     private Scene primaryScene;
     private Stage primaryStage;
 
+    // Current order and selected beverage
     private Order currentOrder;
     private Beverage drink;
 
+    /**
+     * Initializes references and sets up shared controller navigation.
+     *
+     * @param controller      Reference to the main controller
+     * @param stage           The secondary stage
+     * @param primaryStage    The main application stage
+     * @param primaryScene    The main scene to return to
+     */
     public void setMainController(MainController controller, Stage stage, Stage primaryStage, Scene primaryScene) {
         this.mainController = controller;
         this.stage = stage;
@@ -54,6 +72,9 @@ public class BeverageController {
         this.currentOrder = Order.getInstance();
     }
 
+    /**
+     * Initializes dropdowns, sets defaults, and applies listeners for real-time price updates.
+     */
     @FXML
     private void initialize() {
         // Populate flavor list
@@ -76,11 +97,18 @@ public class BeverageController {
         updateSubtotal();
     }
 
+    /**
+     * Applies hover effect animations to buttons using the shared method from MainController.
+     */
     public void applyHoverEffects() {
         mainController.applyHoverEffect(addOrder);
         mainController.applyHoverEffect(backButton);
     }
 
+    /**
+     * Updates the subtotal for the selected beverage based on flavor, size, and quantity.
+     * Updates the price display.
+     */
     private void updateSubtotal() {
         Flavor selectedFlavor = flavorList.getSelectionModel().getSelectedItem();
         Size selectedSize = sizeOption.getValue();
@@ -96,6 +124,10 @@ public class BeverageController {
         priceField.setText(String.format("$%.2f", price));
     }
 
+    /**
+     * Event handler for the "Add to Order" button.
+     * Adds the selected beverage to the current order and returns to the main menu.
+     */
     @FXML
     void addToOrder(ActionEvent event) {
 
@@ -109,6 +141,9 @@ public class BeverageController {
         backToMenu(event);
     }
 
+    /**
+     * Navigates back to the primary scene (main menu).
+     */
     @FXML
     void backToMenu(ActionEvent event) {
         stage.close();
